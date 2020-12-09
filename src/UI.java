@@ -36,12 +36,15 @@ public class UI {
 	
 
 
+	// +++++++++++++++++++++++++++ CONSTRUCTOR +++++++++++++++++++++++++++ 
 	public UI() {
 		initialize();
 	}
 
 
+	// +++++++++++++++++++++++++++ MEMBER FUNCTIONS +++++++++++++++++++++++++++ 
 	private void initialize() {
+		// ++++++++++++++++ STYLE FRAME ++++++++++++++++
 		JFrame frame = new JFrame();
 		ImageIcon img = new ImageIcon("icon.png");
 		frame.setIconImage(img.getImage());
@@ -50,11 +53,13 @@ public class UI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		// ++++++++++++++++ STYLE PATTERN TEXTFIELD ++++++++++++++++
 		patternSearch = new JTextField();
 		patternSearch.setBounds(10, 11, 318, 20);
 		frame.getContentPane().add(patternSearch);
 		patternSearch.setColumns(10);
 		
+		// ++++++++++++++++ STYLE SEARCH BUTTON ++++++++++++++++
 		JButton butonSearch = new JButton("Search");
 		butonSearch.addActionListener(new ActionListener()
 		{	  
@@ -84,6 +89,7 @@ public class UI {
 		butonSearch.setBounds(335, 10, 89, 23);
 		frame.getContentPane().add(butonSearch);
 		
+		// ++++++++++++++++ SCROLLPANE, TEXTAREA AND LABELS ++++++++++++++++
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportView(textArea);
 		scrollPane.setBounds(10, 42, 536, 209);
@@ -100,6 +106,7 @@ public class UI {
 		frame.getContentPane().add(counts);
 		
 		
+		// ++++++++++++++++ STYLE HIGHLIGHT BUTTON ++++++++++++++++
 		JButton butonHighlight = new JButton("Highlight matchings");
 		butonHighlight.addActionListener(new ActionListener()
 		{	  
@@ -132,9 +139,13 @@ public class UI {
 		});
 		butonOpenFile.setBounds(442, 10, 104, 23);
 		frame.getContentPane().add(butonOpenFile);
+		
+		//
 		frame.setVisible(true);
+		//
 	}
 	
+	// ++++++++++++++++ JFileChooser + Read to JTextArea ++++++++++++++++
 	private void loadFile() throws IOException{
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		jfc.setDialogTitle("Select a TXT File");
@@ -147,6 +158,7 @@ public class UI {
 			jfc.getSelectedFile().getPath();
 		}
 		
+		// +++++++++++++++++++++++++ Reading .TXT File ++++++++++++++++++++++++
 		try(final Reader in = new FileReader(jfc.getSelectedFile().getPath()))
 		{
 			textArea.read(in, in);
@@ -154,6 +166,7 @@ public class UI {
 	}
 	
 	private void resetHighlight(){
+		// ++++++++++++++++++++++ RESET HIGHLIGHTED WORDS +++++++++++++++++++
 		Highlighter.Highlight[] hilites = highlighter.getHighlights();
 	    for (int i = 0; i < hilites.length; i++) {
 	      if (hilites[i].getPainter() instanceof HighlightPainter) {
